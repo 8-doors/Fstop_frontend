@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { BookCard } from "../bookcard/book-card";
-import { BookView } from "../book-view/book-view";
+import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
@@ -43,10 +42,10 @@ export const MainView = () => {
   return (
     <div>
       {movies.map((movie) => (
-        <BookCard
+        <MovieCard
           key={movie.id}
           movie={movie}
-          onBookClick={(newSelectedMovie) => {
+          onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
           }}
         />
