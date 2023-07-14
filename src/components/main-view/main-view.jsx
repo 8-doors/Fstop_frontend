@@ -1,33 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import PropTypes from "prop-types";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: "Once Upon a Time in Hollywood",
-      image:
-        "https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2019/06/once-upon-a-time-poster.jpg?ssl=1",
-      director: "Quentin Tarantino"
-    },
-    {
-      id: 2,
-      title: "Kill Bill: Vol. 1",
-      image:
-        "https://image.tmdb.org/t/p/original/weNjkklUaVlZYb1ZlE00GLye6jg.jpg",
-      director: "Quentin Tarantino"
-    },
-    {
-      id: 3,
-      title: "Spider-Man: Into the Spider-Verse",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkLd8Gx_3F1Ff-iUrKhCfDquQVkctpEn_eio0PPhsBcSa5G3p8",
-      director: "Bob Persichetti"
-    }
-  ]);
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    fetch('https://fstop-744b7969db99.herokuapp.com/movies')
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((doc) => {
+          return {
+            id: doc.key,
+            title: doc.Title,
+            genre: doc.Genre,
+            description: doc.Description,
+            image: doc.ImagePath,
+            director: doc.Director
+          };
+        });
+        setMovies(moviesFromApi)
+      });
+  }, []);
 
   if (selectedMovie) {
     return (
@@ -53,3 +50,18 @@ export const MainView = () => {
     </div>
   );
 };
+
+MainView.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    director: PropTypes.string
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired,
+  onMovieClick: PropTypes.func.isRequired,
+  setMovies: PropTypes.func.isRequired,
+  selectedMovie: PropTypes.func.isRequired,
+  setSelectedMovie: PropTypes.func.isRequired
+}
