@@ -10,8 +10,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
 
     const data = {
-        access: username,
-        secret: password
+        Username: username,
+        Password: password
     };
 
     fetch("http://fstop-744b7969db99.herokuapp.com/login", {

@@ -28409,8 +28409,8 @@ const LoginView = ({ onLoggedIn })=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
         fetch("http://fstop-744b7969db99.herokuapp.com/login", {
             method: "POST",
