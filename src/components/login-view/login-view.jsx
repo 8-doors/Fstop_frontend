@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { SignupView } from "../signup-view/signup-view";
+
 
 export const LoginView = ({ onLoggedIn }) => {
     const [username, setUsername] = useState("");
@@ -60,12 +60,6 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </label>
             <button type="submit">Log In</button>
-            <button
-                onClick={() => {
-                    return (
-                      <SignupView />  
-                    )
-                }}>New User</button>
         </form>
     );
 };
